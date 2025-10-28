@@ -11,7 +11,7 @@ It runs **24/7** on **WSO2 Choreo Cloud**, offering smart and fun conversations 
 - 🧠 Custom system prompt via `system-prompt.txt`  
 - 🔄 Always online with **Choreo Cloud Deployment**  
 - 🔐 Secure tokens using Environment Variables  
-- 🇮🇩 Can respond naturally in English or Indonesian  
+- ID Can respond naturally in Indonesian  
 
 ---
 
