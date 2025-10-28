@@ -1,5 +1,0 @@
-{
-  "api_key": "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",
-  "base_url": "https://openrouter.ai/api/v1",
-  "model": "cohere/command-r-plus:free"
-}
