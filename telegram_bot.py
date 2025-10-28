@@ -7,6 +7,10 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 CONFIG_FILE = "wormgpt_config.json"
 PROMPT_FILE = "system-prompt.txt"
 
+# Ambil dari GitHub Secrets (biar aman)
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+API_KEY = os.getenv("OPENROUTER_KEY")
+
 # Hanya pakai model DeepSeek (yang valid)
 MODEL_CONFIG = {
     "name": "deepseek/deepseek-chat",
