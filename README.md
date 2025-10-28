@@ -1,147 +1,91 @@
-# 🧠 WormGPT Telegram Bot
+# 🤖 WormGPT Telegram Bot (DeepSeek Model)
 
-A lightweight AI-powered Telegram bot that runs automatically using **GitHub Actions**.  
-It connects to **OpenRouter API** (GPT, Mixtral, Claude, etc.) to generate smart responses — perfect for quick experiments without hosting your own server.
-
----
-
-## ⚙️ Features
-- 🤖 Powered by **OpenRouter API**
-- 💬 Responds to messages on **Telegram**
-- ⚡ Automatically runs via **GitHub Actions**
-- 🔁 Scheduled every 6 hours using `cron`
-- 🪄 Can also be triggered manually
+## 🧠 Overview
+**WormGPT** is a Telegram bot built with **Python** that connects to the **DeepSeek AI model** via **OpenRouter**.  
+It runs **24/7** on **WSO2 Choreo Cloud**, offering smart and fun conversations with a Gen Z-style twist ⚡
 
 ---
 
-## 🧱 Project Structure
+## 🚀 Features
+- 💬 Real-time AI chat responses using DeepSeek  
+- 🧠 Custom system prompt via `system-prompt.txt`  
+- 🔄 Always online with **Choreo Cloud Deployment**  
+- 🔐 Secure tokens using Environment Variables  
+- 🇮🇩 Can respond naturally in English or Indonesian  
 
-📁 WormGPT/
+---
 
-├── telegram_bot.py # Main bot script
+## 📁 Project Structure
+WormGPT/
 
-├── requirements.txt # Python dependencies
+├── telegram_bot.py        # Main Telegram bot script
 
-├── .github/
+├── keep_alive.py          # Optional Flask server (for uptime ping)
 
-│ └── workflows/
+├── wormgpt_config.json    # Optional configuration file
 
-│ └── run_bot.yml # GitHub Actions workflow
+├── system-prompt.txt      # Defines AI personality / system prompt
 
-│ └── README.md
+└── requirements.txt       # Python dependencies
 
 
 ---
 
-## 🚀 Setup Guide
+## ⚙️ Environment Variables (Choreo)
+Set the following variables in **Choreo → Config → Environment Variables**:
 
-### 1. Create a Telegram Bot
-- Open Telegram and search for `@BotFather`
-- Type `/newbot` → set a name + username
-- Copy the token (you’ll need it later as `TELEGRAM_TOKEN`)
-
-### 2. Create an OpenRouter Account
-- Go to [OpenRouter](https://openrouter.ai)
-- Log in → open **Settings → API Keys**
-- Copy your API key (this will be used as `OPENROUTER_KEY`)
+| Variable Name     | Example Value                                      | Description              |
+|-------------------|----------------------------------------------------|--------------------------|
+| `TELEGRAM_TOKEN`  | `7784554658:AAHOcEhUcn-HcsXTDfPW1mkf6vgSKVODHfI` | Telegram Bot Token       |
+| `OPENROUTER_KEY`  | `sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`   | OpenRouter API Key       |
 
 ---
 
-## 🔐 Add Secrets to GitHub
-
-1. Go to your repository → **Settings → Secrets → Actions**
-2. Add the following secrets:
-
-| Secret Name | Description |
-|--------------|--------------|
-| `TELEGRAM_TOKEN` | Your Telegram bot token |
-| `OPENROUTER_KEY` | Your OpenRouter API key |
-
+## 🧩 Local Setup
+### ☁️ Deploying on Choreo
 ---
+1. Go to Choreo Console
 
-## ⚡ Run the Bot
+2. Log in with your Google account
 
-### ▶️ Manual Run
-1. Go to the **Actions** tab in your repo  
-2. Select **Run WormGPT Telegram Bot**  
-3. Click **Run workflow**  
-4. Wait a few seconds — the bot will go live 🟢  
+3. Create a new Organization (e.g., wormgpt-ai-bot)
 
-### ⏰ Automatic Run
-The workflow runs automatically every **6 hours** according to the schedule below:
+4. Create a new Project → Deploy Existing Code
 
-| UTC Time | Local Time (WIB) |
-|-----------|------------------|
-| 00:00 | 07:00 AM |
-| 06:00 | 01:00 PM |
-| 12:00 | 07:00 PM |
-| 18:00 | 01:00 AM |
+5. Connect your GitHub repo or upload the project manually
 
-Each workflow lasts for about **350 minutes (~5 hours 50 minutes)** before the runner shuts down.
+6. Add Environment Variables: TELEGRAM_TOKEN, OPENROUTER_KEY
 
+7. Click Deploy 🚀
+
+Your bot will be online 24/7 — no manual restarts needed.
+
+### 💬 Example Chat
 ---
+User: Yo bro, what are you doing?
 
-## 🧩 GitHub Actions Workflow
+Bot: Just chilling in the cloud, helping you code 😎
 
-```yaml
-name: Run WormGPT Telegram Bot
+### ⚠️ Common Issues
+---
+| Issue               | Example / Fix                                      | Description                            |
+|--------------------|---------------------------------------------------|----------------------------------------|
+| `HTTP 401`         | N/A                                               | Invalid or missing OpenRouter API key  |
+| `Port already in use` | Change Flask port in `keep_alive.py`            | The default port is occupied           |
+| `Conflict Error`   | Stop duplicate bot instances before restarting   | Prevents multiple bot instances clash  |
 
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 */6 * * *"
+### 🧑‍💻 Credits
 
-concurrency:
-  group: wormgpt-bot
-  cancel-in-progress: true
+- Developer: jailidea
 
-jobs:
-  run-bot:
-    runs-on: ubuntu-latest
-    timeout-minutes: 350
+- Model: DeepSeek (via OpenRouter)
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+- Cloud Hosting: WSO2 Choreo
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: 'pip'
+- Language: Python 3.11
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+### 🧾 License
 
-      - name: Run Telegram Bot
-        env:
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          API_KEY: ${{ secrets.OPENROUTER_KEY }}
-        run: python telegram_bot.py
-
-⚠️ Notes
-
-GitHub Actions runners are temporary — your bot stops when the workflow finishes.
-
-For 24/7 uptime, deploy it to:
-
-Railway.app
-
-Render.com
-
-Any VPS (Contabo, Oracle, etc.)
-
-💡 Tips
-
-Keep all dependencies listed in requirements.txt
-
-Use logging instead of print() to prevent console spam
-
-Never hardcode your API keys — always use GitHub Secrets
-
-💬 Credits
-
-Developed by 🧠 Kyy (WormGPT Project)
-Powered by OpenRouter API & Telegram Bot API
-
-
+This project is for educational purposes only.
+Do not use it for spam, phishing, or any illegal activities.
+Stay ethical and have fun learning 🤝
