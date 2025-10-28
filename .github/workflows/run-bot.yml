@@ -1,0 +1,31 @@
+name: Run WormGPT Telegram Bot
+
+on:
+  workflow_dispatch:  # Bisa dijalankan manual
+  schedule:
+    - cron: "0 */6 * * *"  # Jalan tiap 6 jam sekali
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350  # biar bisa nyala lama
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Telegram Bot
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          API_KEY: ${{ secrets.OPENROUTER_KEY }}
+        run: |
+          python telegram_bot.py
