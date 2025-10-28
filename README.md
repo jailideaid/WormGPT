@@ -36,14 +36,14 @@ Set the following variables in **Choreo → Config → Environment Variables**:
 
 | Variable Name     | Example Value                                      | Description              |
 |-------------------|----------------------------------------------------|--------------------------|
-| `TELEGRAM_TOKEN`  | `7784554658:AAHOcEhUcn-HcsXTDfPW1mkf6vgSKVODHfI` | Telegram Bot Token       |
+| `TELEGRAM_TOKEN`  | `7784554658:AAHOcEhUcn-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` | Telegram Bot Token       |
 | `OPENROUTER_KEY`  | `sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`   | OpenRouter API Key       |
 
 ---
 
 ## 🧩 Local Setup
-### ☁️ Deploying on Choreo
----
+☁️ Deploying on Choreo
+
 1. Go to Choreo Console
 
 2. Log in with your Google account
@@ -60,21 +60,21 @@ Set the following variables in **Choreo → Config → Environment Variables**:
 
 Your bot will be online 24/7 — no manual restarts needed.
 
-### 💬 Example Chat
----
+## 💬 Example Chat
+
 User: Yo bro, what are you doing?
 
 Bot: Just chilling in the cloud, helping you code 😎
 
-### ⚠️ Common Issues
----
+## ⚠️ Common Issues
+
 | Issue               | Example / Fix                                      | Description                            |
 |--------------------|---------------------------------------------------|----------------------------------------|
 | `HTTP 401`         | N/A                                               | Invalid or missing OpenRouter API key  |
 | `Port already in use` | Change Flask port in `keep_alive.py`            | The default port is occupied           |
 | `Conflict Error`   | Stop duplicate bot instances before restarting   | Prevents multiple bot instances clash  |
 
-### 🧑‍💻 Credits
+## 🧑‍💻 Credits
 
 - Developer: jailidea
 
@@ -84,7 +84,7 @@ Bot: Just chilling in the cloud, helping you code 😎
 
 - Language: Python 3.11
 
-### 🧾 License
+## 🧾 License
 
 This project is for educational purposes only.
 Do not use it for spam, phishing, or any illegal activities.
