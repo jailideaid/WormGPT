@@ -17,6 +17,7 @@ It runs **24/7** on **WSO2 Choreo Cloud**, offering smart and fun conversations 
 
 ## 📁 Project Structure
 WormGPT/
+
 -> telegram_bot.py        # Main Telegram bot script
 
 -> keep_alive.py          # Optional Flask server (for uptime ping)
