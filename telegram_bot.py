@@ -22,9 +22,6 @@ SYSTEM_PROMPT = (
     "dengan gaya Gen Z tapi tetap edukatif dan cerdas."
 )
 
-WEBHOOK_URL = "https://2a78d5ab-c33e-4fa9-ad2f-e164bf64faf1-dev.e1-us-east-azure.choreoapis.dev/default/wormgpt/v1.0/webhook"
-
-
 # === Handler Telegram ===
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🚀 WormGPT online, bro! Siap bantu lo kapan aja.")
