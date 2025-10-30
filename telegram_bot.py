@@ -1,27 +1,33 @@
 import os
 import requests
 import json
+import asyncio
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    MessageHandler,
+    ContextTypes,
+    filters,
+)
 
 # === Konfigurasi Awal ===
 CONFIG_FILE = "wormgpt_config.json"
 PROMPT_FILE = "system-prompt.txt"
 
 # Ambil dari GitHub Secrets (biar aman)
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-API_KEY = os.getenv("OPENROUTER_KEY")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "Your Token Bot!")
+API_KEY = os.getenv("OPENROUTER_KEY", "Your Key Api")
 
 # Hanya pakai model DeepSeek (yang valid)
 MODEL_CONFIG = {
     "name": "deepseek/deepseek-chat",
     "base_url": "https://openrouter.ai/api/v1",
-    "key": "Your Key Api"
+    "key": API_KEY,
 }
 
 SITE_URL = "https://openrouter.ai"
 SITE_NAME = "WormGPT CLI"
-TELEGRAM_TOKEN = "Your Token Bot!"
 
 # === Handler Telegram ===
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -39,17 +45,22 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "model": MODEL_CONFIG["name"],
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": user_msg}
-        ]
+            {"role": "user", "content": user_msg},
+        ],
     }
 
     headers = {
         "Authorization": f"Bearer {MODEL_CONFIG['key']}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
 
     try:
-        res = requests.post(f"{MODEL_CONFIG['base_url']}/chat/completions", headers=headers, json=payload)
+        res = requests.post(
+            f"{MODEL_CONFIG['base_url']}/chat/completions",
+            headers=headers,
+            json=payload,
+            timeout=60,
+        )
         data = res.json()
 
         if "choices" in data and len(data["choices"]) > 0:
@@ -62,10 +73,25 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(reply)
 
 
-# === Jalankan Bot ===
+# === Jalankan Bot (Mode Webhook) ===
 app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-print("🚀 WormGPT Telegram Bot jalan bro... (Model: DeepSeek)")
-app.run_polling()
+async def main():
+    # ganti ini pakai URL Choreo lo
+    webhook_url = "https://2a78d5ab-c33e-4fa9-ad2f-e164bf64faf1-dev.e1-us-east-azure.choreoapis.dev/default/wormgpt/v1.0/webhook"
+    
+    # set webhook ke Telegram
+    await app.bot.set_webhook(webhook_url)
+    print(f"🚀 Webhook set ke: {webhook_url}")
+
+    # jalanin webhook listener di port 8080
+    await app.run_webhook(
+        listen="0.0.0.0",
+        port=int(os.environ.get("PORT", 8080)),
+        webhook_url=webhook_url
+    )
+
+if __name__ == "__main__":
+    asyncio.run(main())
