@@ -79,19 +79,24 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
 async def main():
-    # ganti ini pakai URL Choreo lo
     webhook_url = "https://2a78d5ab-c33e-4fa9-ad2f-e164bf64faf1-dev.e1-us-east-azure.choreoapis.dev/default/wormgpt/v1.0/webhook"
-    
-    # set webhook ke Telegram
+
     await app.bot.set_webhook(webhook_url)
     print(f"🚀 Webhook set ke: {webhook_url}")
 
-    # jalanin webhook listener di port 8080
     await app.run_webhook(
         listen="0.0.0.0",
         port=int(os.environ.get("PORT", 8080)),
-        webhook_url=webhook_url
+        webhook_url=webhook_url,
     )
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        # FIX: biar gak bentrok sama event loop existing
+        loop = asyncio.get_event_loop()
+        if loop.is_running():
+            loop.create_task(main())
+        else:
+            loop.run_until_complete(main())
+    except Exception as e:
+        print(f"❌ Gagal jalanin bot: {e}")
