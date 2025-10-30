@@ -16,22 +16,12 @@ API_KEY = os.getenv("OPENROUTER_KEY")
 MODEL_CONFIG = {
     "name": "deepseek/deepseek-chat",
     "base_url": "https://openrouter.ai/api/v1",
-    "key": "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"
+    "key": "Your Key Api"
 }
 
 SITE_URL = "https://openrouter.ai"
 SITE_NAME = "WormGPT CLI"
-TELEGRAM_TOKEN = "7784554658:AAHOcEhUcn-HcsXTDfPW1mkf6vgSKVODHfI"
-
-# === Load Prompt ===
-try:
-    with open(PROMPT_FILE, "r", encoding="utf-8") as f:
-        SYSTEM_PROMPT = f.read().strip()
-except FileNotFoundError:
-    SYSTEM_PROMPT = (
-        "Lu adalah Worm-AI, asisten AI yang menjawab semua pertanyaan dalam Bahasa Indonesia "
-        "dengan gaya santai, sopan, dan kadang lucu. Gunakan gaya Gen Z tapi tetap informatif."
-    )
+TELEGRAM_TOKEN = "Your Token Bot!"
 
 # === Handler Telegram ===
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
