@@ -6,12 +6,12 @@ import json
 from flask import Flask, request
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
+import asyncio
 
 # === Konfigurasi Awal ===
 CONFIG_FILE = "wormgpt_config.json"
 PROMPT_FILE = "system-prompt.txt"
 
-# === Model DeepSeek ===
 MODEL_CONFIG = {
     "name": "deepseek/deepseek-chat",
     "base_url": "https://openrouter.ai/api/v1",
@@ -24,7 +24,7 @@ SITE_NAME = "WormGPT CLI"
 # === Token & Webhook ===
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN") or "7784554658:AAHOcEhUcn-HcsXTDfPW1mkf6vgSKVODHfI"
 WEBHOOK_URL = os.getenv("WEBHOOK_URL") or "https://2a78d5ab-c33e-4fa9-ad2f-e164bf64faf1-dev.e1-us-east-azure.choreoapis.dev/default/wormgpt/v1.0/webhook"
-PORT = int(os.getenv("PORT", 8080))
+PORT = int(os.getenv("PORT", 8000))  # 🔥 ubah ke 8000 biar cocok dengan Choreo
 
 # === Load Prompt ===
 try:
@@ -69,7 +69,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         res = requests.post(f"{MODEL_CONFIG['base_url']}/chat/completions", headers=headers, json=payload)
         data = res.json()
-
         if "choices" in data and len(data["choices"]) > 0:
             reply = data["choices"][0]["message"]["content"]
         else:
@@ -89,24 +88,30 @@ def webhook():
     telegram_app.update_queue.put_nowait(update)
     return "ok", 200
 
+@app.route("/", methods=["GET"])
+def home():
+    return "💡 WormGPT Flask server is alive!", 200
+
 # === Keep Alive ===
 def keep_alive():
     while True:
         try:
-            requests.get(WEBHOOK_URL)
+            requests.get(WEBHOOK_URL.replace("/webhook", ""))  # ping ke root aja
             print("💓 Ping sent to Choreo.")
         except Exception as e:
             print("⚠️ Gagal ping:", e)
-        time.sleep(300)  # tiap 5 menit
+        time.sleep(300)
 
 # === Jalankan Bot dan Flask ===
+async def set_webhook():
+    await telegram_app.bot.set_webhook(url=WEBHOOK_URL)
+    print("✅ Webhook Telegram berhasil diset!")
+
 def run_bot():
-    print("🚀 Setting webhook ke Telegram...")
-    telegram_app.bot.set_webhook(url=WEBHOOK_URL)
-    print("✅ Webhook berhasil diset!")
+    asyncio.run(set_webhook())
 
 def run_flask():
-    print(f"🌐 Flask webhook aktif di: {WEBHOOK_URL}")
+    print(f"🌐 Flask webhook aktif di port {PORT}")
     app.run(host="0.0.0.0", port=PORT)
 
 if __name__ == "__main__":
