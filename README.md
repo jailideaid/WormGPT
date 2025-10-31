@@ -50,7 +50,7 @@ This updated version includes:
 `README.md`
 
 ## 🔧 Installation
-1️⃣ Install Dependencies
+Install Dependencies
 
 ```pip install python-telegram-bot==20.7 requests```
 
@@ -152,11 +152,13 @@ requests
 
 ## 🧧 Credits
 
+Author by Jail Idea
+
 Powered by OpenRouter.ai
 
 Uses DeepSeek Chat V3
 
-Telegram handler: python-telegram-bot
+Telegram handler : python-telegram-bot
 
 ## ❤️ License
 
