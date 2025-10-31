@@ -24,7 +24,7 @@ WormGPT/
 
 -> wormgpt_config.json    # Optional configuration file
 
-->system-prompt.txt      # Defines AI personality / system prompt
+-> system-prompt.txt      # Defines AI personality / system prompt
 
 -> requirements.txt       # Python dependencies
 
