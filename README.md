@@ -36,7 +36,7 @@ Set the following variables in **Choreo → Config → Environment Variables**:
 
 | Variable Name     | Example Value                                      | Description              |
 |-------------------|----------------------------------------------------|--------------------------|
-| `TELEGRAM_TOKEN`  | `7784554658:AAHOcEhUcn-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx` | Telegram Bot Token       |
+| `TELEGRAM_TOKEN`  | `7784554658:AAHOcEhUcn-xxxxxxxxxxxxxxxxx` | Telegram Bot Token       |
 | `OPENROUTER_KEY`  | `sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`   | OpenRouter API Key       |
 
 ---
