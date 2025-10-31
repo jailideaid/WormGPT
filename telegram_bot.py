@@ -24,7 +24,7 @@ MODEL_CONFIG = {
 }
 
 SITE_URL = "https://github.com/jailideaid/WormGPT"
-SITE_NAME = "WormGPT CLI [ Dangerous And Unsafe ⚠️]"
+SITE_NAME = "WormGPT CLI [ Dangerous And Unsafe ⚠️ ]"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 # === Load base system prompt (optional) ===
