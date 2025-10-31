@@ -13,8 +13,8 @@ MODEL_CONFIG = {
     "key": os.getenv("OPENROUTER_KEY")
 }
 
-SITE_URL = "https://openrouter.ai"
-SITE_NAME = "WormGPT CLI"
+SITE_URL = "https://github.com/jailideaid/WormGPT"
+SITE_NAME = "WormGPT CLI Indonesian"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
 # === System Prompt ===
@@ -28,9 +28,9 @@ else:
 # === COMMAND: /start ===
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg = (
-        f"Welcome wormGPT {SITE_NAME}.\n\n"
-        f"Model wormGPT version deepseekV3\n"
-        f"Model AI: {SITE_URL}"
+        f"👋 Welcome {SITE_NAME}\n"
+        f"🤖 Model AI : DeepSeekV3\n"
+        f"🌐 Repo : {SITE_URL}"
     )
     await update.message.reply_text(msg)
 
@@ -71,13 +71,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(reply)
 
 
-# === BUILD TELEGRAM APP ===
 app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-
-# ✅ FUNCTION BIAR DIPANGGIL DARI main.py
 def run_bot():
-    print("🚀 WormGPT Telegram Bot jalan bro... (Model: DeepSeek)")
+    print("🚀 WormGPT Bot Telegram Running.... (Model: DeepSeek)")
     app.run_polling()
