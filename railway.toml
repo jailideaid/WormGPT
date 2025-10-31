@@ -1,0 +1,5 @@
+[build]
+builder = "paketobuildpacks/builder:base"
+
+[deploy]
+startCommand = "python telegram_bot.py"
