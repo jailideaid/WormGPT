@@ -83,13 +83,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     msg = (
-        f"👋 Welcome {SITE_NAME}\n"
+        f"👋 {SITE_NAME}\n"
+        f"\n"
         f"🤖 Model AI : DeepSeekV3\n"
-        f"🌐 Repo : {SITE_URL}\n"
-        f"Jika lo ngirim pesan tanpa ganti bahasa dulu, otomatis\n"
-        f"gue bakal jawab dalam Bahasa Indonesia sebagai default.\n"
-        f"If you send a message without changing the language first, it\n"
-        f"will automatically I will reply in Indonesian as the default.\n"
+        f"🌐 : {SITE_URL}\n"
+        f"\n"
         f"Please choose your language / Silakan pilih bahasa:"
     )
     await update.message.reply_text(msg, reply_markup=reply_markup)
