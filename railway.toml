@@ -1,5 +1,5 @@
 [build]
-builder = "paketobuildpacks/builder:base"
+nixpacks = true
 
 [deploy]
-startCommand = "python telegram_bot.py"
+start = "python telegram_bot.py"
