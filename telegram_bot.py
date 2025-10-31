@@ -10,19 +10,22 @@ PROMPT_FILE = "system-prompt.txt"
 MODEL_CONFIG = {
     "name": "deepseek/deepseek-chat",
     "base_url": "https://openrouter.ai/api/v1",
-    "key": os.getenv("OPENROUTER_KEY")  
+    "key": os.getenv("OPENROUTER_KEY")
 }
 
 SITE_URL = "https://openrouter.ai"
 SITE_NAME = "WormGPT CLI"
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN") 
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 
+# === System Prompt ===
 if os.path.exists(PROMPT_FILE):
     with open(PROMPT_FILE, "r") as f:
         SYSTEM_PROMPT = f.read()
 else:
     SYSTEM_PROMPT = "You are WormGPT running on Telegram."
 
+
+# === COMMAND: /start ===
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     msg = (
         f"Welcome wormGPT {SITE_NAME}.\n\n"
@@ -32,8 +35,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(msg)
 
 
+# === HANDLE MESSAGE ===
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_msg = update.message.text
+
     payload = {
         "model": MODEL_CONFIG["name"],
         "messages": [
@@ -48,22 +53,31 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     }
 
     try:
-        res = requests.post(f"{MODEL_CONFIG['base_url']}/chat/completions", headers=headers, json=payload)
+        res = requests.post(
+            f"{MODEL_CONFIG['base_url']}/chat/completions",
+            headers=headers,
+            json=payload
+        )
         data = res.json()
 
         if "choices" in data and len(data["choices"]) > 0:
             reply = data["choices"][0]["message"]["content"]
         else:
             reply = f"⚠️ Gagal dapet respon: {data}"
+
     except Exception as e:
         reply = f"❌ Error: {e}"
 
     await update.message.reply_text(reply)
 
 
+# === BUILD TELEGRAM APP ===
 app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
-print("🚀 WormGPT Telegram Running... (Model: DeepSeek)")
-app.run_polling()
+
+# ✅ FUNCTION BIAR DIPANGGIL DARI main.py
+def run_bot():
+    print("🚀 WormGPT Telegram Bot jalan bro... (Model: DeepSeek)")
+    app.run_polling()
