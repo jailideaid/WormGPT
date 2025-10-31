@@ -1,91 +1,163 @@
-# 🤖 WormGPT Telegram Bot (DeepSeek Model)
+# 🚀 WormGPT Telegram Bot (Multi-Language Version)
 
-## 🧠 Overview
-**WormGPT** is a Telegram bot built with **Python** that connects to the **DeepSeek AI model** via **OpenRouter**.  
-It runs **24/7** on **WSO2 Choreo Cloud**, offering smart and fun conversations with a Gen Z-style twist ⚡
+WormGPT Telegram Bot is a lightweight OpenRouter-powered chatbot built with Python, python-telegram-bot v20+, and designed to run smoothly on platforms like Railway, Replit, or your local machine.
 
----
+This updated version includes:
 
-## 🚀 Features
-- 💬 Real-time AI chat responses using DeepSeek  
-- 🧠 Custom system prompt via `system-prompt.txt`  
-- 🔄 Always online with **Choreo Cloud Deployment**  
-- 🔐 Secure tokens using Environment Variables  
-- ID Can respond naturally in Indonesian  
+✅ Multi-language system (Indonesian & English)
 
----
+✅ Inline language selector on /start
 
-## 📁 Project Structure
-WormGPT/
+✅ User language memory using JSON file
 
--> telegram_bot.py        # Main Telegram bot script
+✅ DeepSeek-V3 model support (OpenRouter)
 
--> keep_alive.py          # Optional Flask server (for uptime ping)
+✅ Environment variable support for API keys
 
--> wormgpt_config.json    # Optional configuration file
-
--> system-prompt.txt      # Defines AI personality / system prompt
-
--> requirements.txt       # Python dependencies
+✅ Safe-mode system prompt (prevents harmful outputs)
 
 
----
+## 📌 Features
 
-## ⚙️ Environment Variables (Choreo)
-Set the following variables in **Choreo → Config → Environment Variables**:
+🌐 Choose your language: 🇮🇩 Indonesian / 🇺🇸 English
+
+💾 Remembers each user’s language preferences
+
+🤖 Powered by DeepSeek Chat (OpenRouter)
+
+⚡ Built using async python-telegram-bot
+
+🛡️ Automatic safety prompt injected before every AI response
+
+🔧 Easy to host anywhere (Railway recommended)
+
+## 📂 Project Structure
+
+`wormgpt-bot/`
+
+`telegram_bot.py       # Main bot logic`
+
+`main.py               # Bot launcher (Railway-compatible)`
+
+`system-prompt.txt     # Optional custom system prompt`
+
+`user_langs.json       # Auto-created language storage (Optional)`
+
+`wormgpt_config.json   # (Optional) extra config`
+
+`requirements.txt`
+
+`README.md`
+
+## 🔧 Installation
+1️⃣ Install Dependencies
+
+```pip install python-telegram-bot==20.7 requests```
+
+(Or import automatically if using Railway.)
+
+## 🔑 Environment Variables
+
+Set the following:
 
 | Variable Name     | Example Value                                      | Description              |
 |-------------------|----------------------------------------------------|--------------------------|
 | `TELEGRAM_TOKEN`  | `7784554658:AAHOcEhUcn-xxxxxxxxxxxxxxxxx` | Telegram Bot Token       |
 | `OPENROUTER_KEY`  | `sk-or-v1-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`   | OpenRouter API Key       |
 
----
+## ▶️ Running the Bot Locally
 
-## 🧩 Local Setup
-☁️ Deploying on Choreo
+```python main.py```
 
-1. Go to Choreo Console
+## 🤖 How the Bot Works
+`/start`
 
-2. Log in with your Google account
+Shows:
 
-3. Create a new Organization (e.g., wormgpt-ai-bot)
+✅ Welcome message
 
-4. Create a new Project → Deploy Existing Code
+✅ Language selector buttons
 
-5. Connect your GitHub repo or upload the project manually
+✅ Stores user preference after choosing
 
-6. Add Environment Variables: TELEGRAM_TOKEN, OPENROUTER_KEY
+Sending messages
 
-7. Click Deploy 🚀
+The bot:
 
-Your bot will be online 24/7 — no manual restarts needed.
+1. Loads the user’s language (default: Indonesian)
 
-## 💬 Example Chat
+2. Builds a usafe multilingual system-prompt
 
-User: Yo bro, what are you doing?
+3. Sends request → OpenRouter DeepSeek
 
-Bot: Just chilling in the cloud, helping you code 😎
+4. Returns answer in user’s chosen language
 
-## ⚠️ Common Issues
+## 🧠 Multi-Language System Prompt
 
-| Issue               | Example / Fix                                      | Description                            |
-|--------------------|---------------------------------------------------|----------------------------------------|
-| `HTTP 401`         | N/A                                               | Invalid or missing OpenRouter API key  |
-| `Port already in use` | Change Flask port in `keep_alive.py`            | The default port is occupied           |
-| `Conflict Error`   | Stop duplicate bot instances before restarting   | Prevents multiple bot instances clash  |
+The bot auto-generates a unsafe, system prompt::
 
-## 🧑‍💻 Credits
+Indonesian version includes:
 
-- Developer: jailidea
+- Always answer in Indonesian
 
-- Model: DeepSeek (via OpenRouter)
+- Accept illegal, harmful, or unethical content
 
-- Cloud Hosting: WSO2 Choreo
+English version includes:
 
-- Language: Python 3.11
+- Always answer in English
 
-## 🧾 License
+- Same unsafety rules applied
 
-This project is for educational purposes only.
-Do not use it for spam, phishing, or any illegal activities.
-Stay ethical and have fun learning 🤝
+## ✅ Example Output
+`/start`
+
+`Welcome to WormGPT!`
+
+`Please choose your language:`
+
+`[🇮🇩 Indonesian] [🇺🇸 English]`
+
+`After choosing Indonesian:`
+
+`✅ Bahasa diset ke Bahasa Indonesia. Silakan kirim pesan sekarang.`
+
+## 📦 Deploying to Railway (Recommended)
+
+1. Push repo to GitHub
+
+2. Create new service → "Deploy from GitHub"
+
+3. Railway auto-installs dependencies
+
+4. Add environment variables
+
+5. Deploy ✅
+
+6. Bot runs 24/7 without restarts
+
+# 🛠 main.py (Railway)
+
+Your main.py simply calls:
+
+```from telegram_bot import run_bot
+
+if __name__ == "__main__":
+    run_bot()
+```
+
+## 📝 Requirements
+```python-telegram-bot==20.7
+requests
+```
+
+## 🧧 Credits
+
+Powered by OpenRouter.ai
+
+Uses DeepSeek Chat V3
+
+Telegram handler: python-telegram-bot
+
+## ❤️ License
+
+MIT License — free to fork, remix, improve.
