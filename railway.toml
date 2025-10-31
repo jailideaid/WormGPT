@@ -2,4 +2,4 @@
 nixpacks = true
 
 [deploy]
-start = "python telegram_bot.py"
+start = "python main.py"
