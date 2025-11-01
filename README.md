@@ -86,7 +86,7 @@ The bot:
 
 1. Loads the user’s language (default: Indonesian)
 
-2. Builds a usafe multilingual system-prompt
+2. Builds a unsafe multilingual system-prompt
 
 3. Sends request → OpenRouter DeepSeek
 
