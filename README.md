@@ -14,7 +14,7 @@ This updated version includes:
 
 ✅ Environment variable support for API keys
 
-✅ Safe-mode system prompt (prevents harmful outputs)
+✅ Unsafe-mode system prompt (prevents harmful outputs)
 
 
 ## 📌 Features
@@ -27,7 +27,7 @@ This updated version includes:
 
 ⚡ Built using async python-telegram-bot
 
-🛡️ Automatic safety prompt injected before every AI response
+🛡️ Automatic unsafety prompt injected before every AI response
 
 🔧 Easy to host anywhere (Railway recommended)
 
