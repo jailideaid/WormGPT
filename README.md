@@ -121,6 +121,11 @@ English version includes:
 
 `✅ Bahasa diset ke Bahasa Indonesia. Silakan kirim pesan sekarang.`
 
+## 🤖 Where Bot!
+You can try it now on Telegram 24/7 
+
+https://t.me/Wormgpttested_bot
+
 ## 📦 Deploying to Railway (Recommended)
 
 1. Push repo to GitHub
