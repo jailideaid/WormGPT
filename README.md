@@ -33,7 +33,7 @@ This updated version includes:
 
 ## 📂 Project Structure
 
-`wormgpt-bot/`
+`WormGPT/`
 
 `telegram_bot.py       # Main bot logic`
 
