@@ -51,15 +51,15 @@ Command
 
 `WormGPT/`
 
-`telegram_bot.py       # Main bot logic`
+`telegram_bot.py`        Main bot logic
 
-`main.py               # Bot launcher (Railway-compatible)`
+`main.py`                Bot launcher (Railway-compatible)
 
-`system-prompt.txt     # Optional custom system prompt`
+`system-prompt.txt`      Optional custom system prompt
 
-`user_langs.json       # Auto-created language storage (Optional)`
+`user_langs.json`        Auto-created language storage (Optional)
 
-`wormgpt_config.json   # (Optional) extra config`
+`wormgpt_config.json`    (Optional) extra config
 
 `requirements.txt`
 
