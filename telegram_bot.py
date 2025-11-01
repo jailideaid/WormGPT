@@ -136,7 +136,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     last = LAST_MESSAGE_TIME.get(user_id, 0)
 
     if now - last < FLOOD_DELAY:
-        await update.message.reply_text("⏳ Slowmode 3 detik bro ...")
+        await update.message.reply_text("⏳ Slowmode active (3 sec). Please wait...")
         return
 
     LAST_MESSAGE_TIME[user_id] = now
