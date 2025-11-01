@@ -163,7 +163,7 @@ Powered by OpenRouter.ai
 
 Uses DeepSeek Chat V3
 
-Telegram handler : python-telegram-bot
+Telegram handler: python-telegram-bot
 
 ## ❤️ License
 
