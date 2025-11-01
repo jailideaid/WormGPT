@@ -31,18 +31,6 @@ This updated version includes:
 
 🔧 Easy to host anywhere (Railway recommended)
 
-## ✅ New Features Added
-Group Mention Protection (@mention required)
-
-The bot will only respond in group chats if it is explicitly tagged using @BotUsername.
-This prevents the bot from replying randomly to every message in the group.
-
-1. ✅ Responds only when mentioned
-
-2. ✅ Ignores normal chat messages
-
-3. ✅ Still responds to commands (e.g., /start, /setlang) without mention
-
 ## Full Language System (ID & EN)
 
 Users can choose their preferred language through inline buttons:
