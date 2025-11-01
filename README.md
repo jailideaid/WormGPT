@@ -52,7 +52,13 @@ This updated version includes:
 ## 🔧 Installation
 Install Dependencies
 
-```pip install python-telegram-bot==20.7 requests```
+`python-telegram-bot==20.3`
+
+`requests`
+
+`python-dotenv`
+
+`flask`
 
 (Or import automatically if using Railway.)
 
