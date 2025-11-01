@@ -14,7 +14,7 @@ This updated version includes:
 
 ✅ Environment variable support for API keys
 
-✅ Unsafe-mode system prompt (prevents harmful outputs)
+✅ Unsafe-mode system prompt harmful outputs
 
 
 ## 📌 Features
