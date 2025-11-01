@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+import time
 from pathlib import Path
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -129,6 +130,16 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_type = update.message.chat.type
     bot_username = context.bot.username
 
+    # === ✅ ANTI FLOOD 3 DETIK ===
+    now = time.time()
+    last = LAST_MESSAGE_TIME.get(user_id, 0)
+
+    if now - last < FLOOD_DELAY:
+        await update.message.reply_text("⏳ Slowmode active (3 sec). Please wait...")
+        return
+
+    LAST_MESSAGE_TIME[user_id] = now
+    
     # ✅ === RULE BARU: WAJIB TAG BOT JIKA DI GRUP ===
     if chat_type in ["group", "supergroup"]:
         # kecuali command (misalnya /start, /setlang)
