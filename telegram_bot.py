@@ -156,7 +156,6 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_msg},
         ],
-        "max_tokens": 1500
     }
 
     headers = {
