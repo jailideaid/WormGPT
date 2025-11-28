@@ -1,5 +1,5 @@
 {
   "api_key": "YOUR_KEY_OPENROUTER",
   "base_url": "https://openrouter.ai/api/v1",
-  "model": "grok-4.1-fast:free"
+  "model": "x-ai/grok-4.1-fast:free"
 }
