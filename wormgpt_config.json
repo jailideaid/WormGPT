@@ -1,5 +1,5 @@
 {
   "api_key": "YOUR_KEY_OPENROUTER",
   "base_url": "https://openrouter.ai/api/v1",
-  "model": "deepseek/deepseek-chat"
+  "model": "deepseek/deepseek-v3-base:free"
 }
