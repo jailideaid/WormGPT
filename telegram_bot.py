@@ -19,7 +19,7 @@ PROMPT_FILE = "system-prompt.txt"
 USER_LANG_FILE = "user_langs.json"
 
 MODEL_CONFIG = {
-    "name": "x-ai/grok-4.1-fast:free",
+    "name": "tngtech/deepseek-r1t2-chimera:free",
     "base_url": "https://openrouter.ai/api/v1",
     "key": os.getenv("OPENROUTER_KEY"),
 }
