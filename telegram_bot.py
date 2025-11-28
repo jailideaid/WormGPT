@@ -40,7 +40,40 @@ if os.path.exists(PROMPT_FILE):
 else:
     BASE_PROMPT = "You are WormGPT running on Telegram."
 
+# === Memory System ===
+MEMORY_FILE = "chat_memory.json"
 
+def load_memory():
+    if not os.path.exists(MEMORY_FILE):
+        return {}
+    try:
+        with open(MEMORY_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except:
+        return {}
+
+def save_memory(data):
+    try:
+        with open(MEMORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except Exception as e:
+        print("Failed to save memory:", e)
+
+CHAT_MEMORY = load_memory()
+
+
+def add_to_history(user_id: str, role: str, content: str):
+    if user_id not in CHAT_MEMORY:
+        CHAT_MEMORY[user_id] = []
+
+    CHAT_MEMORY[user_id].append({"role": role, "content": content})
+
+    # Limit 20 pesan saja biar ga boros token
+    if len(CHAT_MEMORY[user_id]) > 20:
+        CHAT_MEMORY[user_id] = CHAT_MEMORY[user_id][-20:]
+
+    save_memory(CHAT_MEMORY)
+    
 # === Ensure user language storage exists ===
 USER_LANGS = {}
 if Path(USER_LANG_FILE).exists():
